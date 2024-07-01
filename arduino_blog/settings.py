@@ -20,6 +20,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'blog',
 ]
+# extra settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -30,6 +33,8 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# End extra settings
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
