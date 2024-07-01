@@ -1,5 +1,7 @@
 # blog/views.py
 
+from .models import Comment
+from .forms import CommentForm
 from .models import ProjectPost
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
@@ -28,3 +30,20 @@ def index(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/index.html', {'page_obj': page_obj})
+
+
+
+def post_detail(request, post_id):
+    post = get_object_or_404(ProjectPost, id=post_id)
+    comments = post.comments.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user
+            new_comment.save()
+            return redirect('post_detail', post_id=post.id)
+    else:
+        comment_form = CommentForm()
+    return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
