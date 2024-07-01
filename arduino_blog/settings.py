@@ -19,10 +19,13 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'blog',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 # extra settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

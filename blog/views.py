@@ -1,12 +1,13 @@
-# blog/views.py
-
-from .models import Comment
-from .forms import CommentForm
-from .models import ProjectPost
-from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
-from .forms import ProjectPostForm
+from .models import Comment, ProjectPost
+from .forms import CommentForm, ProjectPostForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+
+
+def my_blog(request):
+    return HttpResponse("Hello, Blog!")
 
 
 @login_required
@@ -30,7 +31,6 @@ def index(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/index.html', {'page_obj': page_obj})
-
 
 
 def post_detail(request, post_id):
